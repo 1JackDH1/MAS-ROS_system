@@ -4,4 +4,4 @@ Combination of multi-agent systems and ROS for application of agent architecture
 
 Basis for agent architecture is a BDI agent-oriented logical programming language, AgentSpeak. Though it's written using [Jason](https://github.com/jason-lang/jason) - an interpreter for an extended version of AgentSpeak. All ROS components are written in Python.
 
-###-- Work in progress --
+### **-- Work in progress --**
