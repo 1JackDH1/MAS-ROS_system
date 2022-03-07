@@ -1,0 +1,8 @@
+MAS mAS_ROS {
+
+    infrastructure: Centralised
+
+    environment: Interface
+
+    agents: sample_agent;
+}

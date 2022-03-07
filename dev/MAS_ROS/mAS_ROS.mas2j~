@@ -1,0 +1,12 @@
+MAS mAS_ROS {
+
+    infrastructure: Local
+
+    environment: Interface
+
+    agents: sample_agent;
+	
+	classpath: "../Downloads/jason-3.0/libs/javax.json-api-1.1.4.jar";
+				"../Downloads/jason-3.0/libs/javax.json-1.1.4.jar";
+				"../eclipse-workspace/mas_ros/lib/java_rosbridge_all.jar";
+}
