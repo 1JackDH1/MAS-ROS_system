@@ -1,0 +1,15 @@
+<launch>
+	
+	<!-- Launch empty world model -->
+ 	<include file="$(find gazebo_ros)/launch/empty_world.launch">
+		<arg name="world_name" value="/worlds/empty.world"/>
+		<arg name="paused" value="true"/>
+	</include>
+	
+	<!-- Turtlebot3 robots -->
+	<include file="$(find robot_system)/launch/robots.launch" />
+	
+	<!-- Run python scripts -->
+	
+
+</launch>
