@@ -1,0 +1,9 @@
+// Implementation of the MAS system - setup
+// for the Java-based interface environment and related agents. 
+
+MAS mas_ros {
+
+    environment: InterfaceEnv
+
+    agents: agent1;
+}
