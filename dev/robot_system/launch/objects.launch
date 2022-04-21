@@ -1,0 +1,8 @@
+<launch>
+	<arg name="blue_cube_sdf" value="$(find robot_system)/models/blue_cube/model.sdf" />
+	<arg name="red_cube_sdf" value="$(find robot_system)/models/red_cube/model.sdf" />
+	<arg name="green_cube_sdf" value="$(find robot_system)/models/green_cube/model.sdf" />
+	
+	<!-- <node pkg="gazebo_ros" type="spawn_model" name="spawn_blue_cube" args="-sdf -file $(arg blue_cube_sdf) -x 1.5 -y 0.0 -z 0.0 -model blue_cube" /> -->
+	<node pkg="gazebo_ros" type="spawn_model" name="spawn_red_cube" args="-sdf -file $(arg red_cube_sdf) -x 2.15 -y 0.0 -z 0.5 -model red_cube" />
+</launch>

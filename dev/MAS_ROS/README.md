@@ -5,5 +5,5 @@ Current project containing Jason agents and Java environment code.
 Project Notes:
 - JDK 15.0
 - Jason 2.5.1
-- Written in Jedit
+- Written in Jedit 4.2
 - javax.json dependency issue related to incompatibility with opening .asl files for accessing Jason agents

@@ -2,9 +2,12 @@
 	
 	<!-- Launch empty world model -->
  	<include file="$(find gazebo_ros)/launch/empty_world.launch">
-		<arg name="world_name" value="/worlds/empty.world"/>
-		<arg name="paused" value="true"/>
+		<arg name="world_name" value="$(find robot_system)/worlds/turtlebot3_world.world"/>
+		<arg name="paused" value="false"/>
 	</include>
+	
+	<!-- Launch additional object models -->
+	<include file="$(find robot_system)/launch/objects.launch" />
 	
 	<!-- Turtlebot3 robots -->
 	<include file="$(find robot_system)/launch/robots.launch" />
