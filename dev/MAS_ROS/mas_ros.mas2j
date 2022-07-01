@@ -5,5 +5,5 @@ MAS mas_ros {
 
     environment: InterfaceEnv
 
-    agents: agent1;
+    agents: control;robot1;robot2;robot3;robot4;
 }

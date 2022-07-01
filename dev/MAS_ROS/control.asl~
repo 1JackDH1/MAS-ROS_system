@@ -1,0 +1,68 @@
+// Agent control in project mas_ros.mas2j
+
+/* Initial beliefs and rules */
+
+// Set robot teams
+teams(team1).
+teams(team2).
+team1(robot1).
+team1(robot2).
+team2(robot3).
+team2(robot4).
+
+// Number of flags
+hasFlags(team1,4)[source(robot1)].
+hasFlags(team2,0).
+
+/* Initial goals */
+
+!start.
+
+/* Plans */
+
++!start : true <- .findall(X,teams(X),L);.print(L).
+//.findall(X,teams(X),L);.nth(0,L,X);.print(X).
+
+// Points management
++!add_point(T,V) : hasFlags(T,N) & not N==4 <- +hasFlags(T,N+V);-hasFlags(T,N).
+-!add_point(T,V) : true <- .print(T," has already captured all points!").
++!deduct_point(T,V) : hasFlags(T,N) & not N==0 <- +hasFlags(T,N-V);-hasFlags(T,N).
+-!deduct_point(T,V) : true <- .print(T," has no points to deduct!").
+
+// Different game clauses for scoring points - change in playstyle
++hasFlags(team1,2)[source(R)] : team1(R)[source(self)] <- 
+	.send(R,untell,playstyle(aggressive));.send(R,tell,playstyle(defensive)).
++hasFlags(team2,2)[source(R)] : team2(R)[source(self)] <- 
+	.send(R,untell,playstyle(aggressive));.send(R,tell,playstyle(defensive)).
+
+// Example loop
+/*
++!test : true <- !loop([1,2,3]).
++!loop(L) : not .empty(L) <-
+	.nth(0,L,X);
+	.print(X);
+	.delete(0,L,Nl);
+	!loop(Nl).
+-!loop(L) : true <- true.
+*/
+
+
++hasFlags(team1,4)[source(R)] : team1(R)[source(self)] <-
+	.findall(Rs,team1(Rs),L);
+	!loop_team(L).
++hasFlags(team2,4)[source(R)] : team2(R)[source(self)] <-
+	.findall(Rs,team2(Rs),L);
+	!loop_team(L).
++!loop_team(L) : not .empty(L) <-
+	.nth(0,L,R);
+	.send(R,untell,playstyle(aggressive));
+	.send(R,untell,playstyle(defensive));
+	.send(R,tell,playstyle(defensive));
+	.delete(0,L,Nl);
+	!loop(Nl).
+-!loop(L) : true <- true.
+
+/*
++hasFlags(T,4)[source(R)] : team1(R)[source(self)] | team2(R)[source(self)] <- 
+	.print("Winning team is ",T);.stopMAS(10000).
+*/
