@@ -2,7 +2,7 @@
 
 Current project containing Jason agents and Java environment code.
 
-Project Notes:
+Project Notes for most recent version:
 - JDK 15.0
 - Jason 2.5.1
 - Written in Jedit 4.2
