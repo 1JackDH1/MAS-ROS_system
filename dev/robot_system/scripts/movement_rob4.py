@@ -9,16 +9,15 @@ from nav_msgs.msg import Odometry
 from itertools import chain
 import numpy as np
 
-robot_name = 'rob2'
+robot_name = 'rob4'
 #msgArray = np.array([robot_name, '-'], dtype='S')
-rob2_laser_info = LaserScan()
+rob4_laser_info = LaserScan()
 agent_msg = 'clear'
 current_state = 0
 
-def rob2LaserMessageReceived(msg):
-	global rob2_laser_info
-	rob2_laser_info = msg
-	#print(' - '.join(map(str, rob2_laser_info.ranges)))
+def rob4LaserMessageReceived(msg):
+	global rob4_laser_info
+	rob4_laser_info = msg
 	
 def agentMessageReceived(msg):
 	global agent_msg
@@ -33,20 +32,20 @@ def odomMessageReceived(msg):
 
 def pubvel():
 	rospy.sleep(2)	# Need time for robot sensors to work and bring in data
-	global rob2_laser_info
+	global rob4_laser_info
 	global current_state
 	global agent_msg
 	global msgArray
-	cmd_vel_pub1 = rospy.Publisher('/robot2/cmd_vel', Twist, queue_size=1000)
+	cmd_vel_pub4 = rospy.Publisher('/robot4/cmd_vel', Twist, queue_size=1000)
 	agent_pub = rospy.Publisher('/objLaserDetect', String, queue_size=1000)
 	rate = rospy.Rate(10)
 	while not rospy.is_shutdown():
-		twist2 = Twist()
+		twist4 = Twist()
 		
 		if current_state == 0:
 			# Driving forward
-			twist2.linear.x = 2.0
-			twist2.angular.z = 0.0
+			twist4.linear.x = 2.0
+			twist4.angular.z = 0.0
 			current_state = 1
 			print('state 0')
 			print(agent_msg)
@@ -54,12 +53,12 @@ def pubvel():
 		elif current_state == 1:
 			print('state 1')
 			# Wall following
-			if rob2_laser_info.ranges[45] < 0.4 and rob2_laser_info.ranges[135] > 0.4:
-				twist2.linear.x = 2.0
-				twist2.angular.z = 0.3
-			if rob2_laser_info.ranges[45] > 0.4 and rob2_laser_info.ranges[135] < 0.4:
-				twist2.linear.x = 2.0
-				twist2.angular.z = -0.3
+			if rob4_laser_info.ranges[45] < 0.4 and rob4_laser_info.ranges[135] > 0.4:
+				twist4.linear.x = 2.0
+				twist4.angular.z = 0.3
+			if rob4_laser_info.ranges[45] > 0.4 and rob4_laser_info.ranges[135] < 0.4:
+				twist4.linear.x = 2.0
+				twist4.angular.z = -0.3
 			
 			# Checking agent messages
 			if agent_msg == 'clear':
@@ -72,30 +71,30 @@ def pubvel():
 			# Check for object in front of robots
 			# Chain together ranges for iteration over frontal laser scanner sensors
 			for index in chain(range(324, 360, 2), range(0, 35, 2)):
-				if rob2_laser_info.ranges[index] < 0.8:
-					twist2.linear.x = 0.0
-					twist2.angular.z = 0.0
-					agent_pub.publish('front_object_robot2')
+				if rob4_laser_info.ranges[index] < 0.8:
+					twist4.linear.x = 0.0
+					twist4.angular.z = 0.0
+					agent_pub.publish('front_object_robot4')
 					break
 			current_state = 0
 
 		elif current_state == 3:
 			print('state 3')
 			# Object forward - turning left
-			twist2.linear.x = 0.0
-			twist2.angular.z = 1.0
-			if rob2_laser_info.ranges[0] > 0.8:
+			twist4.linear.x = 0.0
+			twist4.angular.z = 1.0
+			if rob4_laser_info.ranges[0] > 0.8:
 				agent_msg = 'clear'
 				current_state = 0
 			
-		cmd_vel_pub1.publish(twist2)
+		cmd_vel_pub4.publish(twist4)
 		rate.sleep()
 
 if __name__ == '__main__':
-	rospy.init_node('movement2')
-	rospy.Subscriber('/robot2/scan', LaserScan, rob2LaserMessageReceived)
-	rospy.Subscriber('/java_to_ros/robot2', String, agentMessageReceived)
-	rospy.Subscriber('/robot2/odom', Odometry, odomMessageReceived)
+	rospy.init_node('movement4')
+	rospy.Subscriber('/robot4/scan', LaserScan, rob4LaserMessageReceived)
+	rospy.Subscriber('/java_to_ros/robot4', String, agentMessageReceived)
+	rospy.Subscriber('/robot4/odom', Odometry, odomMessageReceived)
 	
 	try:
 		pubvel()
