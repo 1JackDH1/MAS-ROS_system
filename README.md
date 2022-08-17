@@ -7,4 +7,4 @@ Basis for agent architecture is a BDI agent-oriented logical programming languag
 The Waffle Pi [TurtleBot3](https://emanual.robotis.com/docs/en/platform/turtlebot3/overview/) platform robots were used in this project.
 
 
-**NOTE** - By no means should this project be used/considered as a guide or tutorial. All guides and relevant information can be found through the sources mentioned above. This is an experimental project and the developer bears no responsiblity for any mishap or damage that may occur from using this project. Some project components have been removed from GitHub for privacy reasons.
+**NOTE** - By no means should this project be used/considered as a guide or tutorial. All guides and relevant information can be found through the sources mentioned above. This is an experimental project and the developer bears no responsiblity for any mishap or damage that may occur from using this project. The lack of a license is not an oversight, you may not use this project for commercial use. Some project components have been removed from GitHub for privacy reasons.
